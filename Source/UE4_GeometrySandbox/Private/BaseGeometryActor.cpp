@@ -23,11 +23,11 @@ void ABaseGeometryActor::BeginPlay()
 
 	InitialLocation = GetActorLocation();
 
-	//printTransform();
+	PrintTransform();
 
-	//printTypes();
+	PrintTypes();
 
-	//printStringTypes();
+	PrintStringTypes();
 
 }
 
@@ -36,14 +36,10 @@ void ABaseGeometryActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	FVector CurrentLocation = GetActorLocation();
-	float time = GetWorld()->GetTimeSeconds();
-	CurrentLocation.Z = InitialLocation.Z + Amplitude * FMath::Sin(Frequency * time);
-	SetActorLocation(CurrentLocation);
-
+	HandleMovement();
 }
 
-void ABaseGeometryActor::printTypes()
+void ABaseGeometryActor::PrintTypes()
 {
 	UE_LOG(LogTemp, Display, TEXT("Actor name: %s"), *GetName());
 	UE_LOG(LogTemp, Display, TEXT("Weapons Num: %d, kills num: %i"), WeaponsNum, KillsNum);
@@ -52,7 +48,7 @@ void ABaseGeometryActor::printTypes()
 	UE_LOG(LogTemp, Display, TEXT("Has Weapon: %d"), static_cast<int>(HasWeapon));
 }
 
-void ABaseGeometryActor::printStringTypes()
+void ABaseGeometryActor::PrintStringTypes()
 {
 	FString Name = "John Connor";
 
@@ -69,7 +65,7 @@ void ABaseGeometryActor::printStringTypes()
 	GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Green, stat, true, FVector2D(1.5f, 1.5f));
 }
 
-void ABaseGeometryActor::printTransform()
+void ABaseGeometryActor::PrintTransform()
 {
 	FTransform Transform = GetActorTransform();
 	FVector Location = Transform.GetLocation();
@@ -83,5 +79,22 @@ void ABaseGeometryActor::printTransform()
 	UE_LOG(LogTemp, Display, TEXT("Rotation: %s"), *Rotation.ToString());
 
 	UE_LOG(LogTemp, Error, TEXT("Human Transform: %s"), *Transform.ToHumanReadableString());
+}
+
+void ABaseGeometryActor::HandleMovement()
+{
+	switch (GeometryData.MoveType)
+	{
+	case EMovementType::Sin:
+	{
+		FVector CurrentLocation = GetActorLocation();
+		float Time = GetWorld()->GetTimeSeconds();
+		CurrentLocation.Z = InitialLocation.Z + GeometryData.Amplitude * FMath::Sin(GeometryData.Frequency * Time);
+		SetActorLocation(CurrentLocation);
+		break;
+	}
+	case EMovementType::Static: break;
+	default: break;
+	}
 }
 
