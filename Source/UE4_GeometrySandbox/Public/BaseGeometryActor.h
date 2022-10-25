@@ -44,6 +44,8 @@ public:
 	// Sets default values for this actor's properties
 	ABaseGeometryActor();
 
+	void SetGeometryData(const FGeometryData& Data) { GeometryData = Data; }
+
 	UPROPERTY(VisibleAnywhere)
 	UStaticMeshComponent* BaseMesh;
 

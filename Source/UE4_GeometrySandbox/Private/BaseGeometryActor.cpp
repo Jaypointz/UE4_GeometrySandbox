@@ -67,8 +67,11 @@ void ABaseGeometryActor::PrintStringTypes()
 
 	UE_LOG(LogBaseGeometry, Warning, TEXT("%s"), *stat);
 
-	GEngine->AddOnScreenDebugMessage(-1, 3, FColor::Red, Name);
-	GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Green, stat, true, FVector2D(1.5f, 1.5f));
+	if (GEngine)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 3, FColor::Red, Name);
+		GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Green, stat, true, FVector2D(1.5f, 1.5f));
+	}
 }
 
 void ABaseGeometryActor::PrintTransform()
@@ -94,9 +97,14 @@ void ABaseGeometryActor::HandleMovement()
 	case EMovementType::Sin:
 	{
 		FVector CurrentLocation = GetActorLocation();
-		float Time = GetWorld()->GetTimeSeconds();
-		CurrentLocation.Z = InitialLocation.Z + GeometryData.Amplitude * FMath::Sin(GeometryData.Frequency * Time);
-		SetActorLocation(CurrentLocation);
+		if (GetWorld())
+		{
+			float Time = GetWorld()->GetTimeSeconds();
+			CurrentLocation.Z = InitialLocation.Z + GeometryData.Amplitude * FMath::Sin(GeometryData.Frequency * Time);
+
+			SetActorLocation(CurrentLocation);
+		}
+		
 		break;
 	}
 	case EMovementType::Static: break;
@@ -106,6 +114,8 @@ void ABaseGeometryActor::HandleMovement()
 
 void ABaseGeometryActor::SetColor(const FLinearColor& Color)
 {
+	if (!BaseMesh) return;
+
 	UMaterialInstanceDynamic* DynMaterial = BaseMesh->CreateAndSetMaterialInstanceDynamic(0);
 
 	if (DynMaterial)
