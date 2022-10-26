@@ -6,6 +6,8 @@
 #include "GameFramework/Pawn.h"
 #include "SandboxPawn.generated.h"
 
+class UCameraComponent;
+
 UCLASS()
 class UE4_GEOMETRYSANDBOX_API ASandboxPawn : public APawn
 {
@@ -15,8 +17,18 @@ public:
 	// Sets default values for this pawn's properties
 	ASandboxPawn();
 
+	virtual void PossessedBy(AController* NewController) override;
+
+	virtual void UnPossessed() override;
+
 	UPROPERTY(VisibleAnywhere)
 	USceneComponent* SceneComponent;
+
+	UPROPERTY(VisibleAnywhere)
+	UStaticMeshComponent* StaticMeshComponent;
+
+	UPROPERTY(VisibleAnywhere)
+	UCameraComponent* CameraComponent;
 
 	UPROPERTY(VisibleAnywhere)
 	float Velocity = 300.0f;

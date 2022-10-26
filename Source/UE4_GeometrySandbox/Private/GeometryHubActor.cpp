@@ -77,19 +77,19 @@ void AGeometryHubActor::DoActorSpawn3(UWorld* const World)
 
 void AGeometryHubActor::OnColorChanged(const FLinearColor& Color, const FString& Name)
 {
-	UE_LOG(LogGeometryHub, Warning, TEXT("Actor name: %s -===- Color: %s"), *Name, *Color.ToString());
+	//UE_LOG(LogGeometryHub, Warning, TEXT("Actor name: %s -===- Color: %s"), *Name, *Color.ToString());
 }
 
 void AGeometryHubActor::OnTimerFinished(AActor* Actor)
 {
 	if (!Actor) return;
-	UE_LOG(LogGeometryHub, Error, TEXT("Timer finished: %s"), *Actor->GetName());
+	//UE_LOG(LogGeometryHub, Error, TEXT("Timer finished: %s"), *Actor->GetName());
 
 	ABaseGeometryActor* Geometry = Cast<ABaseGeometryActor>(Actor);
 
 	if (!Geometry) return;
 	
-	UE_LOG(LogGeometryHub, Display, TEXT("Successfuly casted to ABaseGeometryActor, amplitude %f"), Geometry->GetGeometryData().Amplitude);
+	//UE_LOG(LogGeometryHub, Display, TEXT("Successfuly casted to ABaseGeometryActor, amplitude %f"), Geometry->GetGeometryData().Amplitude);
 
 	Geometry->Destroy();
 	//Geometry->SetLifeSpan(2.0f);
