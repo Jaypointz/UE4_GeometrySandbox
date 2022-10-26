@@ -13,5 +13,8 @@ UCLASS()
 class UE4_GEOMETRYSANDBOX_API AUE4_GeometrySandboxGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
-	
+
+public: 
+
+	AUE4_GeometrySandboxGameModeBase();
 };
