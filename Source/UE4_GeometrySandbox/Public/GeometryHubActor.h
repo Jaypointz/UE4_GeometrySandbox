@@ -36,10 +36,6 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	void DoActorSpawn1(UWorld* const World);
-	void DoActorSpawn2(UWorld* const World);
-	void DoActorSpawn3(UWorld* const World);
-
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<ABaseGeometryActor> GeometryClass;
 
@@ -48,5 +44,15 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+private:
+	void DoActorSpawn1(UWorld* const World);
+	void DoActorSpawn2(UWorld* const World);
+	void DoActorSpawn3(UWorld* const World);
+
+	UFUNCTION()
+	void OnColorChanged(const FLinearColor& Color, const FString& Name);
+
+	void OnTimerFinished(AActor* Actor);
 
 };
