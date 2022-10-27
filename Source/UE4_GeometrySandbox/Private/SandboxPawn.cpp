@@ -45,7 +45,6 @@ void ASandboxPawn::UnPossessed()
 void ASandboxPawn::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 // Called every frame
