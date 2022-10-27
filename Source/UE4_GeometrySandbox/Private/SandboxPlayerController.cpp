@@ -4,6 +4,7 @@
 #include "SandboxPlayerController.h"
 #include "Components/InputComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "Engine/World.h"
 #include "SandboxPawn.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogSandboxPlayerController, All, All);
